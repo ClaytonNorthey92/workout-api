@@ -1,0 +1,7 @@
+test:
+  dialect: postgres
+  database: workout_tracker_test
+  host: localhost
+  port: 5432
+  user: postgres
+  password: postgres
