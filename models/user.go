@@ -19,6 +19,7 @@ type User struct {
 // This method is not required and may be deleted.
 func (u *User) Validate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.Validate(
+		// TODO add validator to check for uniqueness
 		&validators.StringIsPresent{Field: u.Username, Name: "Username"},
 	), nil
 }
@@ -35,7 +36,6 @@ func (u *User) ValidateUpdate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.NewErrors(), nil
 }
 
-func (u *User) Save(tx *pop.Connection) *validate.Errors {
-	errs, _ := tx.ValidateAndCreate(u)
-	return errs
+func (u *User) Save(tx *pop.Connection) (*validate.Errors, error) {
+	return tx.ValidateAndCreate(u)
 }
