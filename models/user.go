@@ -43,10 +43,13 @@ func (u *User) ValidateUpdate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.NewErrors(), nil
 }
 
+// Save is the method used to persist user data (save a user) to the database
 func (u *User) Save(tx *pop.Connection) (*validate.Errors, error) {
 	return tx.ValidateAndCreate(u)
 }
 
+// ExistingUsernameCount will return the count of users with the same username or an error
+// if one has occurred
 func (u *User) ExistingUsernameCount(tx *pop.Connection) (int, error) {
 	where := tx.Where("username = ?", u.Username)
 	return where.Count(&User{})
