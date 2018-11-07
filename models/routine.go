@@ -1,53 +1,39 @@
 package models
 
 import (
-	"fmt"
-	"time"
-
 	"github.com/gobuffalo/pop"
 	"github.com/gobuffalo/uuid"
 	"github.com/gobuffalo/validate"
 	"github.com/gobuffalo/validate/validators"
+	"time"
 )
 
-type User struct {
+type Routine struct {
 	ID        uuid.UUID `json:"id" db:"id"`
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
-	Username  string    `json:"username" db:"username"`
+	Name      string    `json:"name" db:"name"`
 }
+
+// Routines is not required by pop and may be deleted
+type Routines []Routine
 
 // Validate gets run every time you call a "pop.Validate*" (pop.ValidateAndSave, pop.ValidateAndCreate, pop.ValidateAndUpdate) method.
 // This method is not required and may be deleted.
-func (u *User) Validate(tx *pop.Connection) (*validate.Errors, error) {
-	userCount, err := u.ExistingUsernameCount(tx)
-	if err != nil {
-		return nil, err
-	}
-
+func (r *Routine) Validate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.Validate(
-		&validators.StringIsPresent{Field: u.Username, Name: "Username"},
-		&validators.IntIsLessThan{Name: "count", Field: userCount, Compared: 1, Message: fmt.Sprintf("duplicate username: \"%s\"", u.Username)},
+		&validators.StringIsPresent{Field: r.Name, Name: "Name"},
 	), nil
 }
 
 // ValidateCreate gets run every time you call "pop.ValidateAndCreate" method.
 // This method is not required and may be deleted.
-func (u *User) ValidateCreate(tx *pop.Connection) (*validate.Errors, error) {
+func (r *Routine) ValidateCreate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.NewErrors(), nil
 }
 
 // ValidateUpdate gets run every time you call "pop.ValidateAndUpdate" method.
 // This method is not required and may be deleted.
-func (u *User) ValidateUpdate(tx *pop.Connection) (*validate.Errors, error) {
+func (r *Routine) ValidateUpdate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.NewErrors(), nil
-}
-
-func (u *User) Save(tx *pop.Connection) (*validate.Errors, error) {
-	return tx.ValidateAndCreate(u)
-}
-
-func (u *User) ExistingUsernameCount(tx *pop.Connection) (int, error) {
-	where := tx.Where("username = ?", u.Username)
-	return where.Count(&User{})
 }

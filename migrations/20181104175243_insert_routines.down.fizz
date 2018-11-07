@@ -1,0 +1,18 @@
+raw(`
+    INSERT INTO routines (name)
+    VALUES
+    ("barbell flat bench press"),
+    ("barbell inclined bench press"),
+    ("barbell standing press"),
+    ("dumbbell inclined bench press"),
+    ("dumbbell flat bench press"),
+    ("dumbbell sitting press"),
+    ("barbell squat"),
+    ("barbell deadlift"),
+    ("chin up"),
+    ("lateral pull down"),
+    ("tricep dumbbell press"),
+    ("ab circuit"),
+    ("shoulder fly"),
+    ("bent over shoulder fly")
+`);

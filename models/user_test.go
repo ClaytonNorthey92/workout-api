@@ -38,8 +38,9 @@ func TestShouldNotAllowDuplicateUsernames(t *testing.T) {
 		t.Error(err.Error())
 	}
 
-	_, err = userTwo.Save(db)
-	if err.Error() != "pq: duplicate key value violates unique constraint \"unique_username\"" {
-		t.Error(err.Error())
+	errs, _ := userTwo.Save(db)
+
+	if errs.Error() != "duplicate username: \"blah\"" {
+		t.Errorf("incorrect error message: %s", errs.Error())
 	}
 }

@@ -1,0 +1,20 @@
+raw(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`);
+
+raw(`
+    INSERT INTO routines (id, name, created_at, updated_at)
+    VALUES
+    (uuid_generate_v1(), 'barbell flat bench press', NOW(), NOW()),
+    (uuid_generate_v1(), 'barbell inclined bench press', NOW(), NOW()),
+    (uuid_generate_v1(), 'barbell standing press', NOW(), NOW()),
+    (uuid_generate_v1(), 'dumbbell inclined bench press', NOW(), NOW()),
+    (uuid_generate_v1(), 'dumbbell flat bench press', NOW(), NOW()),
+    (uuid_generate_v1(), 'dumbbell sitting press', NOW(), NOW()),
+    (uuid_generate_v1(), 'barbell squat', NOW(), NOW()),
+    (uuid_generate_v1(), 'barbell deadlift', NOW(), NOW()),
+    (uuid_generate_v1(), 'chin up', NOW(), NOW()),
+    (uuid_generate_v1(), 'lateral pull down', NOW(), NOW()),
+    (uuid_generate_v1(), 'tricep dumbbell press', NOW(), NOW()),
+    (uuid_generate_v1(), 'ab circuit', NOW(), NOW()),
+    (uuid_generate_v1(), 'shoulder fly', NOW(), NOW()),
+    (uuid_generate_v1(), 'bent over shoulder fly', NOW(), NOW())
+`);
